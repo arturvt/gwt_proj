@@ -21,6 +21,7 @@
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.example.artur.client.GWTSampleProject'/>
+  
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

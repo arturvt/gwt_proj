@@ -1,6 +1,7 @@
 package com.example.artur.client;
 
 import com.example.artur.shared.FieldVerifier;
+import com.example.artur.shared.model.VoiceTestSummary;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -33,6 +34,31 @@ public class GWTSampleProject implements EntryPoint {
 	 */
 	private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
+	private DialogBox createTestArea() {
+		final DialogBox dialogBox = new DialogBox();
+		dialogBox.center();
+		final VerticalPanel dialogVPanel = new VerticalPanel();
+		
+		greetingService.getTestSummarySample(new AsyncCallback<VoiceTestSummary>() {
+			
+			@Override
+			public void onSuccess(VoiceTestSummary result) {
+				Label l = new Label("Success");
+				dialogVPanel.add(l);
+				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Label l = new Label("Fail");
+				dialogVPanel.add(l);
+			}
+		});
+		
+		dialogBox.setWidget(dialogVPanel);
+		return dialogBox;
+	}
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -50,7 +76,10 @@ public class GWTSampleProject implements EntryPoint {
 		RootPanel.get("nameFieldContainer").add(nameField);
 		RootPanel.get("sendButtonContainer").add(sendButton);
 		RootPanel.get("errorLabelContainer").add(errorLabel);
+		RootPanel.get("testContent").add(createTestArea());
 
+		
+		
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		nameField.selectAll();

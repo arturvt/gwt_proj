@@ -1,4 +1,4 @@
-package com.example.artur.server.model.voice.objects;
+package com.example.artur.shared.model;
 
 import java.io.Serializable;
 

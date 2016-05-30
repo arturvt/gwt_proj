@@ -1,10 +1,9 @@
-package com.example.artur.server.model.voice.objects;
+package com.example.artur.shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.googlecode.objectify.annotation.Ignore;
 

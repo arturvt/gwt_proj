@@ -1,38 +1,24 @@
-package com.example.artur.server.model.voice.entity;
+package com.example.artur.shared.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.gwtent.reflection.client.Reflectable;
-import com.motorola.metricsforjira.client.domain.voice.objects.VoiceTestCase;
-
-@Entity
-@Reflectable
 public class VoiceTestSummary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
     private String testSummaryID;
 
-    @Index
     private String product;
 
-    @Index
     private String language;
 
-    @Index
     private String androidBuild;
 
-    @Index
     private String appBuild;
 
-    @Index
     private Date testSummaryDate;
 
     private String computerIP;
