@@ -1,6 +1,8 @@
 package com.example.artur.client;
 
 import com.example.artur.shared.FieldVerifier;
+import com.example.artur.shared.model.VoiceFailType;
+import com.example.artur.shared.model.VoiceTestCase;
 import com.example.artur.shared.model.VoiceTestSummary;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -38,13 +40,40 @@ public class GWTSampleProject implements EntryPoint {
 		final DialogBox dialogBox = new DialogBox();
 		dialogBox.center();
 		final VerticalPanel dialogVPanel = new VerticalPanel();
-		
+		dialogVPanel.addStyleName("dialogVPanel");
+		final Button closeButton = new Button("Close");
+		// Add a handler to close the DialogBox
+		closeButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				GWT.log("Closed");
+				dialogBox.hide();
+			}
+		});
+		dialogVPanel.add(closeButton);
 		greetingService.getTestSummarySample(new AsyncCallback<VoiceTestSummary>() {
 			
 			@Override
 			public void onSuccess(VoiceTestSummary result) {
-				Label l = new Label("Success");
-				dialogVPanel.add(l);
+				
+				closeButton.getElement().setId("closeButton");
+				dialogVPanel.add(new HTML("<h1>Showing Test Details</h1>"));
+				dialogVPanel.add(new HTML("<h2>Summary</h2></br>"));
+				dialogVPanel.add(new Label("Test Summary ID: " + result.getTestSummaryID()));
+				dialogVPanel.add(new Label("Android Build: " + result.getAndroidBuild()));
+				dialogVPanel.add(new Label("Application Build: " + result.getAppBuild()));
+				dialogVPanel.add(new Label("Language: " + result.getLanguage()));
+				dialogVPanel.add(new HTML("<h2>Failure Reason</h2>"));
+				for (VoiceTestCase testCase:result.getVoiceTestCaseList()) {
+					dialogVPanel.add(new Label("Language: " + testCase.getTestName()));
+					dialogVPanel.add(new Label("Passed: " + testCase.getPassedPercentage()));
+					dialogVPanel.add(new Label("Failed: " + testCase.getFailPercentage()));
+					for (VoiceFailType fail:testCase.getVoiceFailTypeList()) {
+						dialogVPanel.add(new Label("Type: " + fail.getFailType()));
+						dialogVPanel.add(new Label("Failed: " + fail.getFailPercentage()));
+					}
+				}
+				
+
 				
 			}
 			
